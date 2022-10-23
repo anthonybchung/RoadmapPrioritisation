@@ -8,6 +8,7 @@ const morgan = require('morgan');
 /**********************/
 /* Import routes here */
 /**********************/
+const users = require('./routes/users.routes');
 
 /********************************/
 // Load env variables.
@@ -51,4 +52,6 @@ app.use(cors(corsOptions));
 /*************************/
 /* Mount routes here     */
 /*************************/
+app.use('/api/v1/users', users);
+
 module.exports = { app, PORT, HOST, MODE };

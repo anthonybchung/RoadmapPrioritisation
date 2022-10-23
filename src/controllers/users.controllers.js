@@ -92,11 +92,23 @@ exports.updateUser = async (req, res, next) => {
 // Description: Delete user
 // route: DELETE /api/v1/users/:id
 // access: private
-exports.deleteUser = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    data: {
-      msg: `user id: ${req.params.id} is deleted`,
-    },
-  });
+exports.deleteUser = async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {},
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+    });
+  }
 };

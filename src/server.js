@@ -63,5 +63,6 @@ app.use('/api/v1/users', users);
 /* Catch all the errors  */
 /* from routes           */
 /*************************/
+app.use(errorHandler);
 
 module.exports = { app, PORT, HOST, MODE };

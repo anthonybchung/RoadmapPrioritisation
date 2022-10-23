@@ -1,4 +1,5 @@
 const User = require('../models/User.model');
+const ErrorResponse = require('../utils/errorResponse');
 
 // Description: Get all users on the system.
 // route: GET /api/v1/users/
@@ -11,7 +12,9 @@ exports.allUsers = async (req, res, next) => {
       data: users,
     });
   } catch (error) {
-    next(error);
+    next(
+      new ErrorResponse('Server can not find Users requested resources', 404)
+    );
   }
 };
 
@@ -23,16 +26,19 @@ exports.getUser = async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-      return res.status(400).json({
-        success: false,
-      });
+      const message = `Can not find User ID: ${req.params.id}`;
+      return next(new ErrorResponse(message, 404));
     }
+
     res.status(200).json({
       success: true,
       data: user,
     });
   } catch (error) {
-    next(error);
+    if (error.name === 'CastError') {
+      const message = `Invalid User ID: ${error.value}`;
+      next(new ErrorResponse(message, 400));
+    }
   }
 };
 
@@ -42,6 +48,7 @@ exports.getUser = async (req, res, next) => {
 exports.createUser = async (req, res, next) => {
   try {
     const user = await User.create(req.body);
+
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -52,6 +59,11 @@ exports.createUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      const message = `Duplicate data: ${Object.keys(error.keyValue)}`;
+
+      return next(new ErrorResponse(message, 409));
+    }
     next(error);
   }
 };

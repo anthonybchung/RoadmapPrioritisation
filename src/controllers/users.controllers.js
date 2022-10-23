@@ -20,13 +20,24 @@ exports.allUsers = async (req, res, next) => {
 // Description: get one user.
 // route: Get /api/v1/users/:id
 // access: private
-exports.getUser = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    data: {
-      msg: `recevied user id: ${req.params.id}`,
-    },
-  });
+exports.getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+    });
+  }
 };
 
 // Description: Create new user.

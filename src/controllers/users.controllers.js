@@ -1,16 +1,20 @@
 const User = require('../models/User.model');
+
 // Description: Get all users on the system.
 // route: GET /api/v1/users/
 // access: private
 exports.allUsers = async (req, res, next) => {
   try {
-    const users = User.findby();
-    console.log('hello creation');
+    const users = await User.find();
     res.status(200).json({
       success: true,
       data: users,
     });
-  } catch {}
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+    });
+  }
 };
 
 // Description: get one user.

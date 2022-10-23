@@ -4,7 +4,12 @@ const User = require('../models/User.model');
 // access: private
 exports.allUsers = async (req, res, next) => {
   try {
-    const users = findby();
+    const users = User.findby();
+    console.log('hello creation');
+    res.status(200).json({
+      success: true,
+      data: users,
+    });
   } catch {}
 };
 

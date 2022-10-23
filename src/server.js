@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const colors = require('colors');
 const morgan = require('morgan');
 
+const connectDB = require('./config/db');
 /**********************/
 /* Import routes here */
 /**********************/
@@ -13,6 +14,9 @@ const users = require('./routes/users.routes');
 /********************************/
 // Load env variables.
 dotenv.config();
+
+//connect to database
+connectDB();
 
 const app = express();
 

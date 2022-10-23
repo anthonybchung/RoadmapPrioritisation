@@ -1,13 +1,11 @@
+const User = require('../models/User.model');
 // Description: Get all users on the system.
 // route: GET /api/v1/users/
 // access: private
-exports.allUsers = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    data: {
-      msg: 'all users listed',
-    },
-  });
+exports.allUsers = async (req, res, next) => {
+  try {
+    const users = findby();
+  } catch {}
 };
 
 // Description: get one user.

@@ -27,3 +27,5 @@ const UserSchema = new mongoose.Schema({
     minlength: [6, 'Password must be over 6 character long'],
   },
 });
+
+module.exports = mongoose.Schema('User', UserSchema);

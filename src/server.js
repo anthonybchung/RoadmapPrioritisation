@@ -6,6 +6,7 @@ const colors = require('colors');
 const morgan = require('morgan');
 
 const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
 /**********************/
 /* Import routes here */
 /**********************/
@@ -54,8 +55,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 /*************************/
-/* Mount routes here     */
+/* Mount routers here     */
 /*************************/
 app.use('/api/v1/users', users);
+
+/*************************/
+/* Catch all the errors  */
+/* from routes           */
+/*************************/
 
 module.exports = { app, PORT, HOST, MODE };

@@ -11,9 +11,7 @@ exports.allUsers = async (req, res, next) => {
       data: users,
     });
   } catch (error) {
-    res.status(400).json({
-      success: false,
-    });
+    next(error);
   }
 };
 
@@ -34,9 +32,7 @@ exports.getUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    res.status(400).json({
-      success: false,
-    });
+    next(error);
   }
 };
 
@@ -56,9 +52,7 @@ exports.createUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    res.status(400).json({
-      success: false,
-    });
+    next(error);
   }
 };
 
@@ -83,9 +77,7 @@ exports.updateUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    res.status(400).json({
-      success: false,
-    });
+    next(error);
   }
 };
 
@@ -107,8 +99,6 @@ exports.deleteUser = async (req, res, next) => {
       data: {},
     });
   } catch (error) {
-    res.status(200).json({
-      success: false,
-    });
+    next(error);
   }
 };

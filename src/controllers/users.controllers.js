@@ -60,6 +60,14 @@ exports.createUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
+    //Error: Validation
+    if (error._message === 'User validation failed') {
+      const errKey = Object.keys(error.errors)[0];
+      const message = `${error.errors[errKey]}`;
+      return next(new ErrorResponse(message, 422));
+    }
+
+    //Error: Data Duplication
     if (error.code === 11000) {
       const message = `Duplicate data: ${Object.keys(error.keyValue)}`;
 
@@ -92,6 +100,20 @@ exports.updateUser = async (req, res, next) => {
     if (error.name === 'CastError') {
       const message = `Invalid User ID: ${error.value}`;
       next(new ErrorResponse(message, 400));
+    }
+
+    //Error: Validation
+    if (error._message === 'User validation failed') {
+      const errKey = Object.keys(error.errors)[0];
+      const message = `${error.errors[errKey]}`;
+      return next(new ErrorResponse(message, 422));
+    }
+
+    //Error: Data Duplication
+    if (error.code === 11000) {
+      const message = `Duplicate data: ${Object.keys(error.keyValue)}`;
+
+      return next(new ErrorResponse(message, 409));
     }
     next(error);
   }

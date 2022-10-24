@@ -39,6 +39,7 @@ exports.getUser = async (req, res, next) => {
       const message = `Invalid User ID: ${error.value}`;
       next(new ErrorResponse(message, 400));
     }
+    next(error);
   }
 };
 
@@ -79,9 +80,8 @@ exports.updateUser = async (req, res, next) => {
     });
 
     if (!user) {
-      return res.status(400).json({
-        success: false,
-      });
+      const message = 'User id not found';
+      return next(new ErrorResponse(message, 422));
     }
 
     res.status(200).json({
@@ -89,6 +89,10 @@ exports.updateUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
+    if (error.name === 'CastError') {
+      const message = `Invalid User ID: ${error.value}`;
+      next(new ErrorResponse(message, 400));
+    }
     next(error);
   }
 };

@@ -8,8 +8,16 @@ const errorHandler = (err, req, res, next) => {
 
   // CastError
   if (err.name === 'CastError') {
-    const message = `Invalid Resourse ID: ${err.value}`;
+    const message = `Invalid Resourse(${err.path}): ${err.value}`;
     error = new ErrorResponse(message, 400);
+  }
+
+  // Validation Error
+  console.log(err.message);
+  if (err.name === 'ValidationError') {
+    const errKey = Object.keys(error.errors)[0];
+    const message = `${error.errors[errKey]}`;
+    error = new ErrorResponse(message, 422);
   }
 
   res.status(error.statusCode || 500).json({

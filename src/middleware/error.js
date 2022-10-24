@@ -1,9 +1,20 @@
-const errorHandler = (err, req, res, next) => {
-  console.log(err.stack);
+const ErrorResponse = require('../utils/errorResponse');
 
-  res.status(err.statusCode || 500).json({
+const errorHandler = (err, req, res, next) => {
+  console.log(err.stack.red);
+
+  let error = { ...err };
+  error.message = err.message;
+
+  // CastError
+  if (err.name === 'CastError') {
+    const message = `Invalid Resourse ID: ${err.value}`;
+    error = new ErrorResponse(message, 400);
+  }
+
+  res.status(error.statusCode || 500).json({
     success: false,
-    error: err.message || 'Server Error',
+    error: error.message || 'Server Error',
   });
 };
 

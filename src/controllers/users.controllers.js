@@ -35,10 +35,10 @@ exports.getUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    if (error.name === 'CastError') {
-      const message = `Invalid User ID: ${error.value}`;
-      next(new ErrorResponse(message, 400));
-    }
+    // if (error.name === 'CastError') {
+    //   const message = `Invalid User ID: ${error.value}`;
+    //   next(new ErrorResponse(message, 400));
+    // }
     next(error);
   }
 };

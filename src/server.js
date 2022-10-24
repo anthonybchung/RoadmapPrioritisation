@@ -11,6 +11,7 @@ const errorHandler = require('./middleware/error');
 /* Import routes here */
 /**********************/
 const users = require('./routes/users.routes');
+const auth = require('./routes/auth.routes');
 
 /********************************/
 // Load env variables.
@@ -58,7 +59,7 @@ app.use(cors(corsOptions));
 /* Mount routers here     */
 /*************************/
 app.use('/api/v1/users', users);
-
+app.use('/api/v1/auth', auth);
 /*************************/
 /* Catch all the errors  */
 /* from routes           */

@@ -21,11 +21,21 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  blocked: {
+    type: Boolean,
+    default: false,
+  },
   password: {
     type: String,
-    required: [true, 'Please add password']
+    required: [true, 'Please add password'],
     minlength: [6, 'Password must be over 6 character long'],
     select: false,
+  },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 

@@ -55,6 +55,23 @@ exports.login = async (req, res, next) => {
   }
 };
 
+// Description: Get current user
+// route: GET /api/v1/auth/me
+// access: Private
+
+exports.getMe = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // use cookie for token, and expry time
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();

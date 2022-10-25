@@ -4,9 +4,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const colors = require('colors');
 const morgan = require('morgan');
-
+const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
+
 /**********************/
 /* Import routes here */
 /**********************/
@@ -48,6 +49,8 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// store token in cookie
+app.use(cookieParser());
 // CORS add frontend domain name here.
 const corsOptions = {
   origin: ['http://localhost:3000', 'https://deployedApp.com'],

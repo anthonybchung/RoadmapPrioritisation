@@ -13,13 +13,8 @@ exports.register = async (req, res, next) => {
       password,
     });
 
-    //generate a token on this user.
-    const token = user.getSignedJwtToken();
-
-    res.status(200).json({
-      success: true,
-      token,
-    });
+    //generate a cookie- token on this user.
+    sendTokenResponse(user, 200, res);
   } catch (error) {
     next(error);
   }
@@ -48,10 +43,21 @@ exports.login = async (req, res, next) => {
   }
 
   //create a token for user
-  const token = user.getSignedJwtToken();
+  //generate a cookie- token on this user.
+  sendTokenResponse(user, 200, res);
+};
 
-  res.status(200).json({
-    success: true,
-    token,
-  });
+// use cookie for token
+const sendTokenResponse = (user, statusCode, res) => {
+  const token = user.getSignedJwtToken();
+  const expiryPeriod = process.env.JWT_COOKIE_EXPIRE * 24 * 3600 * 1000;
+  const options = {
+    expires: new Date(Date.now() + expiryPeriod),
+    httpOnly: true,
+  };
+
+  res
+    .status(statusCode)
+    .cookie('token', token, options)
+    .json({ success: true, token });
 };

@@ -32,22 +32,30 @@ exports.login = async (req, res, next) => {
     return next(new ErrorResponse('Please provide email or password', 400));
   }
 
-  // // User validation
-  const user = await User.findOne({ email }).select('+password');
+  try {
+    // // User validation
+    const user = await User.findOne({ email }).select('+password');
 
-  //check authorisation
-  const isAllowedAccess = await user.allowedAccess(password);
+    if (!user) {
+      return next(new ErrorResponse('Invalid email or user', 401));
+    }
 
-  if (!isAllowedAccess) {
-    return next(new ErrorResponse('Not authorised'), 401);
+    //check authorisation
+    const isAllowedAccess = await user.allowedAccess(password);
+
+    if (!isAllowedAccess) {
+      return next(new ErrorResponse('Not authorised'), 401);
+    }
+
+    //create a token for user
+    //generate a cookie- token on this user.
+    sendTokenResponse(user, 200, res);
+  } catch (error) {
+    next(error);
   }
-
-  //create a token for user
-  //generate a cookie- token on this user.
-  sendTokenResponse(user, 200, res);
 };
 
-// use cookie for token
+// use cookie for token, and expry time
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
   const expiryPeriod = process.env.JWT_COOKIE_EXPIRE * 24 * 3600 * 1000;

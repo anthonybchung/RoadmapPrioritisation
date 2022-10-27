@@ -78,7 +78,6 @@ UserSchema.methods.allowedAccess = async function (enteredPassword) {
 
 // create and hash password-token
 UserSchema.methods.getResetPasswordToken = function () {
-  console.log('inside getResetPasswordToken');
   const resetToken = crypto.randomBytes(20).toString('hex');
 
   //create and hash then insert into collections

@@ -5,6 +5,7 @@ const User = require('../models/User.model');
 exports.protect = async (req, res, next) => {
   let token;
 
+  //check the headers and check if it contains correct data format.
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')

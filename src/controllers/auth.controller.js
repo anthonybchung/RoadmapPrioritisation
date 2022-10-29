@@ -97,8 +97,6 @@ exports.forgotPassword = async (req, res, next) => {
 
     const message = `Click the following link to reset password: \n\n ${resetLink}`;
 
-    console.log(message);
-
     try {
       await sendEmail({
         email: user.email,

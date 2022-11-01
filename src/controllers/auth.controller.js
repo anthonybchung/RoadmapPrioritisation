@@ -6,14 +6,16 @@ const crypto = require('crypto');
 // route: POST /api/v1/auth/register
 // access: public
 exports.register = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
+  console.log(req.body);
   try {
     const user = await User.create({
-      name,
+      firstName,
+      lastName,
       email,
       password,
     });
-
+    console.log(req.body);
     //generate a cookie- token on this user.
     sendTokenResponse(user, 200, res);
   } catch (error) {
@@ -126,7 +128,6 @@ exports.forgotPassword = async (req, res, next) => {
 // Access: Public
 
 exports.resetPassword = async (req, res, next) => {
-  console.log('inside resetPassword');
   const resetPasswordToken = crypto
     .createHash('sha256')
     .update(req.params.resettoken)

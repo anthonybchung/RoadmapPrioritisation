@@ -4,9 +4,16 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
-    unique: true,
+    unique: false,
+    required: [true, 'Please enter a user name'],
+    maxlength: [30, 'Name can not be longer than 30 character'],
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    unique: false,
     required: [true, 'Please enter a user name'],
     maxlength: [30, 'Name can not be longer than 30 character'],
     trim: true,

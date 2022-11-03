@@ -13,8 +13,8 @@ router.route('/').get(protect, allUsers).post(protect, createUser);
 
 router
   .route('/:id')
-  .get(protect, getUser)
-  .put(protect, updateUser)
-  .delete(protect, deleteUser);
+  .get( getUser)
+  .put(updateUser)
+  .delete(deleteUser);
 
 module.exports = router;

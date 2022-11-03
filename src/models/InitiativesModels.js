@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const InitiativesListSchema = new mongoose.Schema({
+const InitiativesSchema = new mongoose.Schema({
     ticket_id: {
         type: String,
         unique: true,
@@ -91,4 +91,4 @@ const InitiativesListSchema = new mongoose.Schema({
       },
 });    
 
-module.exports = mongoose.model('InitiativesList', InitiativesListSchema);    
+module.exports = mongoose.model('Initiatives', InitiativesSchema);    

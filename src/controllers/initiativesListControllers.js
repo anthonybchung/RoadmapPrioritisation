@@ -1,8 +1,8 @@
-const InitiativesList = require('../models/InitiativesList.model');
-import mongoose from 'mongoose';
-import { InitiativesList } from '../models/InitiativesList.model';
+const InitiativesList = require('../models/InitiativesListModels');
+const mongoose = require('mongoose');
 
-const InitiativesList = mongoose.model('InitiativesList, InitiativesListSchema')
+// Commented out line 5 due to an error SyntaxError: Identifier 'InitiativesList' has already been declared
+// const InitiativesList = mongoose.model('InitiativesList, InitiativesListSchema')
 
 
 // Description: Get all initiativesList on the system.

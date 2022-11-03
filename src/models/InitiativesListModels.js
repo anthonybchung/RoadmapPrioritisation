@@ -23,7 +23,7 @@ const InitiativesListSchema = new mongoose.Schema({
         trim: true,
       },
       Submit_data: {
-        type: date,
+        type: Date,
         unique: false,
         required: [true, 'Please enter sumbit date'],
         default: Date.now,

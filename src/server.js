@@ -13,7 +13,7 @@ const errorHandler = require('./middleware/error');
 /**********************/
 const users = require('./routes/users.routes');
 const auth = require('./routes/auth.routes');
-const initiativesList = require('./routes/initiativesList.routes');
+const initiativesList = require('./routes/initiativesListRoutes');
 
 /********************************/
 // Load env variables.

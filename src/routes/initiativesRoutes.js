@@ -7,7 +7,7 @@ const {
 } = require('../controllers/initiativesControllers');
 
 const { protect } = require('../middleware/protect.middleware');
-router.route('/').get(protect, allInitiatives).post(protect, createUser);
+router.route('/').get(protect, allInitiatives); // Need to update create User
 
 router
   .route('/:id')

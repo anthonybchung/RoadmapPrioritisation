@@ -9,7 +9,7 @@ exports.allInitiatives = async (req, res, next) => {
     const initiatives = await Initiatives.find();
     res.status(200).json({
       success: true,
-      data: initiativesList,
+      data: initiatives,
     });
   } catch (error) {
     next(
@@ -60,7 +60,7 @@ exports.getInitiative = async (req, res, next) => {
 //   }
 // };
 
-// Description: Update users
+// Description: Update initiative
 // route: PUT /api/v1/initiative/:id
 // access: private
 exports.updateInitiative = async (req, res, next) => {

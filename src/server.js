@@ -13,6 +13,7 @@ const errorHandler = require('./middleware/error');
 /**********************/
 const users = require('./routes/users.routes');
 const auth = require('./routes/auth.routes');
+const initiatives = require('./routes/initiativesRoutes');
 
 /********************************/
 // Load env variables.
@@ -24,7 +25,7 @@ connectDB();
 const app = express();
 
 // Server details.
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 const HOST = '0.0.0.0';
 const MODE = process.env.NODE_ENV;
 
@@ -63,6 +64,7 @@ app.use(cors(corsOptions));
 /*************************/
 app.use('/api/v1/users', users);
 app.use('/api/v1/auth', auth);
+// app.use('/api/v1/initiatives', initiatives);
 /*************************/
 /* Catch all the errors  */
 /* from routes           */

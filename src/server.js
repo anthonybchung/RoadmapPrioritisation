@@ -64,7 +64,7 @@ app.use(cors(corsOptions));
 /*************************/
 app.use('/api/v1/users', users);
 app.use('/api/v1/auth', auth);
-// app.use('/api/v1/initiatives', initiatives);
+app.use('/api/v1/initiatives', initiatives);
 /*************************/
 /* Catch all the errors  */
 /* from routes           */

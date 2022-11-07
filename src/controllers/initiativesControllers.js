@@ -20,27 +20,29 @@ exports.allInitiatives = async (req, res, next) => {
 
 // ??? Description: get to search initiatives on dashboard.
 // route: Get /api/v1/initiatives/?q=
-exports.allInitiatives = async (req, res, next) => {
-  try {
-    const q = await req.query;
+// ??? Error missing catc or finally after try???
+// exports.allInitiatives = async (req, res, next) => {
+//   try {
+//     const q = await req.query;
 
-    const keys = ["ticket_id", "initiative", "description"];
+//     const keys = ["ticket_id", "initiative", "description"];
 
-    const search = (data) => {
-      return data.filter((item) => 
-        keys.some((key) => item[key].toLowerCase().includes(q))
-      );
-    }
-    res.status(200).json({
-      success: true,
-      data: initiatives,
-    });
-  } catch (error) {
-    next(
-      new ErrorResponse('Server can not find initiatives requested resources', 404)
-    );
-  }
-};
+//     try {
+//     const search = (data) => {
+//       return data.filter((item) => 
+//         keys.some((key) => item[key].toLowerCase().includes(q))
+//       );
+//     };
+//     res.status(200).json({
+//       success: true,
+//       data: initiatives,
+//     });
+//   } catch (error) {
+//     next(
+//       new ErrorResponse('Server can not find initiatives matching search', 404)
+//     );
+//   }
+// };
 
 // Description: get one initiatives.
 // route: Get /api/v1/initiatives/:id

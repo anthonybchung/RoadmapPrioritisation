@@ -1,7 +1,7 @@
-const User = require('../models/User.model');
-const ErrorResponse = require('../utils/errorResponse');
-const sendEmail = require('../utils/sendEmail');
-const crypto = require('crypto');
+const User = require("../models/User.model");
+const ErrorResponse = require("../utils/errorResponse");
+const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 // Description: Register User.
 // route: POST /api/v1/auth/register
 // access: public
@@ -32,22 +32,22 @@ exports.login = async (req, res, next) => {
 
   // // check if there is  email and password
   if (!email || !password) {
-    return next(new ErrorResponse('Please provide email or password', 400));
+    return next(new ErrorResponse("Please provide email or password", 400));
   }
 
   try {
     // // User validation
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      return next(new ErrorResponse('Invalid email or user', 401));
+      return next(new ErrorResponse("Invalid email or user", 401));
     }
 
     //check authorisation
     const isAllowedAccess = await user.allowedAccess(password);
 
     if (!isAllowedAccess) {
-      return next(new ErrorResponse('Not authorised'), 401);
+      return next(new ErrorResponse("Not authorised"), 401);
     }
 
     //create a token for user
@@ -84,7 +84,7 @@ exports.forgotPassword = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-      return next(new ErrorResponse('No such email', 404));
+      return next(new ErrorResponse("No such email", 404));
     }
 
     //Get reset-password-token
@@ -94,7 +94,7 @@ exports.forgotPassword = async (req, res, next) => {
 
     //create a link for user to reset password.
     const resetLink = `${req.protocol}://${req.get(
-      'host'
+      "host"
     )}/api/v1/auth/resetpassword/${resetToken}`;
 
     const message = `Click the following link to reset password: \n\n ${resetLink}`;
@@ -102,13 +102,13 @@ exports.forgotPassword = async (req, res, next) => {
     try {
       await sendEmail({
         email: user.email,
-        subject: 'Reset email',
+        subject: "Reset email",
         message,
       });
 
       res
         .status(200)
-        .json({ success: true, data: 'Reset password email sent' });
+        .json({ success: true, data: "Reset password email sent" });
     } catch (error) {
       //clear tokens and expiry time.
       user.resetPasswordToken = undefined;
@@ -116,7 +116,7 @@ exports.forgotPassword = async (req, res, next) => {
 
       await user.save({ validateBeforeSave: false });
 
-      return next(new ErrorResponse('Email can not be sent', 500));
+      return next(new ErrorResponse("Email can not be sent", 500));
     }
   } catch (error) {
     next(error);
@@ -129,9 +129,9 @@ exports.forgotPassword = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
   const resetPasswordToken = crypto
-    .createHash('sha256')
+    .createHash("sha256")
     .update(req.params.resettoken)
-    .digest('hex');
+    .digest("hex");
 
   try {
     const user = await User.findOne({
@@ -140,7 +140,7 @@ exports.resetPassword = async (req, res, next) => {
     });
 
     if (!user) {
-      return next(new ErrorResponse('Invalid token', 400));
+      return next(new ErrorResponse("Invalid token", 400));
     }
 
     // set new password.
@@ -165,8 +165,10 @@ const sendTokenResponse = (user, statusCode, res) => {
     httpOnly: true,
   };
 
+  const approved = user.approved;
+
   res
     .status(statusCode)
-    .cookie('token', token, options)
-    .json({ success: true, token });
+    .cookie("token", token, options)
+    .json({ success: true, token, approved });
 };

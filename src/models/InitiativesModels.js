@@ -15,61 +15,61 @@ const InitiativesSchema = new mongoose.Schema({
         maxlength: [30, "Title max length is 30" ],
         trim: true,
       },
-      Description: {
+      description: {
         type: String,
         unique: false,
         required: [true, 'Please enter description'],
         maxlength: [200, "Decription max length is 200" ],
         trim: true,
       },
-      Submit_data: {
+      submit_data: {
         type: Date,
         unique: false,
         required: [true, 'Please enter sumbit date'],
         default: Date.now,
       },
-      Owner: {
+      owner: {
         type: String,
         unique: false,
         required: [true, 'Please enter owner name'],
         maxlength: [20, "Owner max length is 20" ],
         trim: true,
       },
-      Impact: {
+      impact: {
         type: String,
         unique: false,
         required: [true, 'Please enter Impact'],
         maxlength: [10, "Owner max length is 10" ],
         trim: true,
       },
-      Confidence: {
+      confidence: {
         type: String,
         unique: false,
         required: [true, 'Please enter Confidence'],
         maxlength: [10, "Owner max length is 10" ],
         trim: true,
       },
-      Effort: {
+      effort: {
         type: String,
         unique: false,
         required: [true, 'Please enter Effort'],
         maxlength: [10, "Owner max length is 10" ],
         trim: true,
       },
-      ICE_Score: {
+        ice_score: {
         type: Number,
         unique: false,
         required: [true, 'Please enter ICE_Score'],
         default: 0,
       },
-      Priority: {
+        priority: {
         type: String,
         unique: false,
         required: [true, 'Please enter Priority'],
         maxlength: [2, "Priority max length is 2" ],
         default: 0,
       },
-      Target: {
+      target: {
         type: String,
         unique: false,
         required: [true, 'Please enter Target'],
@@ -83,7 +83,7 @@ const InitiativesSchema = new mongoose.Schema({
         maxlength: [10, "Owner max length is 10" ],
         default: 0,
       },
-      Comment: {
+      comment: {
         type: String,
         unique: false,
         required: false,

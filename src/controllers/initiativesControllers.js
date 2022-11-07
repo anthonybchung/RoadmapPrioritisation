@@ -2,7 +2,7 @@ const Initiatives = require('../models/InitiativesModels');
 const ErrorResponse = require('../utils/errorResponse');
 
 // Description: Get all users on the system.
-// route: GET /api/v1/initiativesList/
+// route: GET /api/v1/initiatives/
 // access: private
 exports.allInitiatives = async (req, res, next) => {
   try {
@@ -13,14 +13,39 @@ exports.allInitiatives = async (req, res, next) => {
     });
   } catch (error) {
     next(
-      new ErrorResponse('Server can not find initiativesrequested resources', 404)
+      new ErrorResponse('Server can not find initiatives requested resources', 404)
     );
   }
 };
 
+// ??? Description: get to search initiatives on dashboard.
+// route: Get /api/v1/initiatives/?q=
+// ??? Error missing catc or finally after try???
+// exports.allInitiatives = async (req, res, next) => {
+//   try {
+//     const q = await req.query;
+
+//     const keys = ["ticket_id", "initiative", "description"];
+
+//     try {
+//     const search = (data) => {
+//       return data.filter((item) => 
+//         keys.some((key) => item[key].toLowerCase().includes(q))
+//       );
+//     };
+//     res.status(200).json({
+//       success: true,
+//       data: initiatives,
+//     });
+//   } catch (error) {
+//     next(
+//       new ErrorResponse('Server can not find initiatives matching search', 404)
+//     );
+//   }
+// };
+
 // Description: get one initiatives.
 // route: Get /api/v1/initiatives/:id
-// access: private
 exports.getInitiative = async (req, res, next) => {
   try {
     const initiative = await initiative.findById(req.params.id);
@@ -39,30 +64,8 @@ exports.getInitiative = async (req, res, next) => {
   }
 };
 
-// Description: Create new user.
-// route: POST /api/v1/initiative/
-// access: public
-// exports.createUser = async (req, res, next) => {
-//   try {
-//     const user = await User.create(req.body);
-
-//     if (!user) {
-//       return res.status(400).json({
-//         success: false,
-//       });
-//     }
-//     res.status(200).json({
-//       success: true,
-//       data: user,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 // Description: Update initiative
 // route: PUT /api/v1/initiative/:id
-// access: private
 exports.updateInitiative = async (req, res, next) => {
   try {
     const initiative = await Initiative.findByIdAndUpdate(req.params.id, req.body, {

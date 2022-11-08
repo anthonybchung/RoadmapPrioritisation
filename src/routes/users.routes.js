@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {
   allUsers,
@@ -6,15 +6,11 @@ const {
   updateUser,
   deleteUser,
   getUser,
-} = require('../controllers/users.controllers');
+} = require("../controllers/users.controllers");
 
-const { protect } = require('../middleware/protect.middleware');
-router.route('/').get(protect, allUsers).post(protect, createUser);
+const { protect } = require("../middleware/protect.middleware");
+router.route("/").get(allUsers).post(protect, createUser);
 
-router
-  .route('/:id')
-  .get( getUser)
-  .put(updateUser)
-  .delete(deleteUser);
+router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
 module.exports = router;

@@ -7,7 +7,7 @@ const crypto = require("crypto");
 // access: public
 exports.register = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
-  console.log(req.body);
+
   try {
     const user = await User.create({
       firstName,
@@ -15,7 +15,7 @@ exports.register = async (req, res, next) => {
       email,
       password,
     });
-    console.log(req.body);
+
     //generate a cookie- token on this user.
     sendTokenResponse(user, 200, res);
   } catch (error) {
@@ -80,8 +80,10 @@ exports.getMe = async (req, res, next) => {
 // access: Public
 
 exports.forgotPassword = async (req, res, next) => {
+  console.log(req.body);
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const userLowerCase = req.body.email.toLowerCase();
+    const user = await User.findOne({ email: userLowerCase });
 
     if (!user) {
       return next(new ErrorResponse("No such email", 404));

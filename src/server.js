@@ -54,8 +54,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // CORS add frontend domain name here.
 //"http://localhost:3000",
+//"https://roadmapprioritisation.netlify.app",
 const corsOptions = {
-  origin: ["https://roadmapprioritisation.netlify.app"],
+  origin: ["http://localhost:3000"],
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));

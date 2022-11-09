@@ -85,7 +85,7 @@ const InitiativesSchema = new mongoose.Schema({
     enum: {
       values: [
         "January",
-        "Febuary",
+        "February",
         "March",
         "April",
         "May",

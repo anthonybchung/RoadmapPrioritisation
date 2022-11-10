@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 
-const InitiativesSchema = new mongoose.Schema({
-    ticket_id: {
+const EstimationSchema = new mongoose.Schema({
+      priority: {
+        type: String,
+        unique: false,
+        required: [true, 'Please enter Priority'],
+        maxlength: [2, "Priority max length is 2" ],
+        default: 0,
+      },
+      ticket_id: {
         type: String,
         unique: true,
         required: [true, 'Please enter a ticket_id'],
@@ -35,54 +42,51 @@ const InitiativesSchema = new mongoose.Schema({
         maxlength: [20, "Owner max length is 20" ],
         trim: true,
       },
-      impact: {
+      squad_name: {
         type: String,
-        unique: false,
-        required: [true, 'Please enter Impact'],
-        maxlength: [10, "Owner max length is 10" ],
+        unique: true,
+        required: [true, 'Please enter a squad name'],
+        maxlength: [20, "Squad_name max length is 20" ],
         trim: true,
       },
-      confidence: {
+      goal: {
         type: String,
         unique: false,
-        required: [true, 'Please enter Confidence'],
-        maxlength: [10, "Owner max length is 10" ],
-        trim: true,
+        required: [true, 'Please enter goal details'],
+        maxlength: [150, "Owner max length is 150" ],
+        trim: trim,
       },
-      effort: {
+      purpose: {
         type: String,
         unique: false,
-        required: [true, 'Please enter Effort'],
-        maxlength: [10, "Owner max length is 10" ],
-        trim: true,
+        required: [true, 'Please enter goal details'],
+        maxlength: [200, "Owner max length is 200" ],
+        trim: trim,
       },
-        ice_score: {
+      eng_est: {
         type: Number,
         unique: false,
-        required: [true, 'Please enter ICE_Score'],
+        required: [true, 'Please enter Engineer estimation'],
         default: 0,
       },
-        priority: {
-        type: String,
+      design_est: {
+        type: Number,
         unique: false,
-        required: [true, 'Please enter Priority'],
-        maxlength: [2, "Priority max length is 2" ],
+        required: [true, 'Please enter Design estimation'],
         default: 0,
       },
-      target: {
-        type: String,
+      pm_est: {
+        type: Number,
         unique: false,
-        required: [true, 'Please enter Target'],
-        maxlength: [20, "Target max length is 20" ],
+        required: [true, 'Please enter PM estimation'],
         default: 0,
       },
-      target_launch: {
+      comment: {
         type: String,
         unique: false,
-        required: [false, 'Please enter Target Launch date'],
-        maxlength: [10, "Owner max length is 10" ],
-        default: 0,
-      }
+        maxlength: [200, "Owner max length is 200" ],
+        trim: trim,
+      },
 });    
 
-module.exports = mongoose.model('Initiatives', InitiativesSchema);    
+module.exports = mongoose.model('Estimation', EstimationSchema);    

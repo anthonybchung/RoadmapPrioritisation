@@ -38,26 +38,26 @@ const InitiativesSchema = new mongoose.Schema({
   impact: {
     type: String,
     enum: {
-      values: ["xSmall", "Small", "Medium", "Large", "XLarge"],
+      values: ["?", "Small", "Medium", "Large", "XLarge"],
       message: "Please valid enum value: xSmall,Small,Medium,Large,XLarge",
-      default: "xSmall",
+      default: "?",
     },
   },
   confidence: {
     type: String,
     enum: {
-      values: ["xSmall", "Small", "Medium", "Large", "XLarge"],
+      values: ["?", "Small", "Medium", "Large", "XLarge"],
       message: "Please valid enum value: xSmall,Small,Medium,Large,XLarge",
     },
-    default: "xSmall",
+    default: "?",
   },
   effort: {
     type: String,
     enum: {
-      values: ["xSmall", "Small", "Medium", "Large", "XLarge"],
+      values: ["?", "Small", "Medium", "Large", "XLarge"],
       message: "Please valid enum value: xSmall,Small,Medium,Large,XLarge",
     },
-    default: "xSmall",
+    default: "?",
   },
   ice_score: {
     type: Number,

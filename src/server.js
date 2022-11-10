@@ -14,7 +14,7 @@ const errorHandler = require('./middleware/error');
 const users = require('./routes/users.routes');
 const auth = require('./routes/auth.routes');
 const initiatives = require('./routes/initiativesRoutes');
-const estimations = require('./routes/estimationRoutes');
+const estimations = require('./routes/estimationsRoutes');
 
 /********************************/
 // Load env variables.

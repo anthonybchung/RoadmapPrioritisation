@@ -1,4 +1,4 @@
-const Initiatives = require('../models/EstimationModels');
+const Estimation = require('../models/EstimationsModels');
 const ErrorResponse = require('../utils/errorResponse');
 
 // Description: Get all estimations on the system.

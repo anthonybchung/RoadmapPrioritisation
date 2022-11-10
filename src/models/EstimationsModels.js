@@ -40,28 +40,28 @@ const EstimationsSchema = new mongoose.Schema({
         unique: false,
         required: [true, 'Please enter owner name'],
         maxlength: [20, "Owner max length is 20" ],
-        trim: true,
+        default: 0,
       },
       squad_name: {
         type: String,
         unique: true,
         required: [true, 'Please enter a squad name'],
         maxlength: [20, "Squad_name max length is 20" ],
-        trim: true,
+        default: 0,
       },
       goal: {
         type: String,
         unique: false,
         required: [true, 'Please enter goal details'],
         maxlength: [150, "Owner max length is 150" ],
-        trim: trim,
+        default: 0,
       },
       purpose: {
         type: String,
         unique: false,
         required: [true, 'Please enter goal details'],
         maxlength: [200, "Owner max length is 200" ],
-        trim: trim,
+        default: 0,
       },
       eng_est: {
         type: Number,
@@ -85,7 +85,7 @@ const EstimationsSchema = new mongoose.Schema({
         type: String,
         unique: false,
         maxlength: [200, "Owner max length is 200" ],
-        trim: trim,
+        default: 0,
       },
 });    
 

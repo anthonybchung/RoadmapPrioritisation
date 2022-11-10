@@ -2,19 +2,20 @@ const express = require('express');
 const router = express.Router();
 const {
   allEstimations,
-  createEstimations,
-  updateEstimations,
-  deleteEstimations,
-  getEstimations,
-} = require('../controllers/Estimations.controllers');
+  createEstimation,
+  updateEstimation,
+  deleteEstimation,
+  getEstimation,
+} = require('../controllers/estimationController');
 
 const { protect } = require('../middleware/protect.middleware');
-router.route('/').get(protect, allEstimations).post(protect, createEstimations);
+router.route('/').get(allEstimations).post(createEstimation);
 
 router
   .route('/:id')
-  .get( getEstimations)
-  .put(updateEstimations)
-  .delete(deleteEstimations);
+  .get( getEstimation)
+  .put(updateEstimation)
+  .delete(deleteEstimation)
+  .post(createEstimation)
 
 module.exports = router;

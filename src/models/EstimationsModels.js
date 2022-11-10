@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const EstimationSchema = new mongoose.Schema({
+const EstimationsSchema = new mongoose.Schema({
       priority: {
         type: String,
         unique: false,
@@ -89,4 +89,4 @@ const EstimationSchema = new mongoose.Schema({
       },
 });    
 
-module.exports = mongoose.model('Estimation', EstimationSchema);    
+module.exports = mongoose.model('Estimations', EstimationsSchema);    

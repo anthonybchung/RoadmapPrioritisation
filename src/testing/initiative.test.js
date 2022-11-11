@@ -1,4 +1,4 @@
-const request = require('supertest');
+/*const request = require('supertest');
 const { app } = require('../server');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -26,3 +26,4 @@ describe('Initiative dashboard page....', () => {
 }) 
 
 
+*/

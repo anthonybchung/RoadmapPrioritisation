@@ -46,7 +46,7 @@ const data = JSON.parse(
 
 // Load model
 const modelName = table.charAt(0).toUpperCase() + table.slice(1);
-const Model = require(`./models/${modelName}.model`);
+const Model = require(`./models/${modelName}`);
 
 if (process.argv[2] === "-i") {
   insertData(Model, data);

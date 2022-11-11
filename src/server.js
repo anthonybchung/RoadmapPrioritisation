@@ -11,8 +11,8 @@ const errorHandler = require("./middleware/error");
 /**********************/
 /* Import routes here */
 /**********************/
-const users = require("./routes/users.routes");
-const auth = require("./routes/auth.routes");
+const users = require("./routes/usersRoutes");
+const auth = require("./routes/authRoutes");
 const initiatives = require("./routes/initiativesRoutes");
 const estimations = require("./routes/estimationsRoutes");
 

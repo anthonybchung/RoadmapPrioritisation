@@ -1,0 +1,9 @@
+
+users = [
+  { "firstName": "Anthony",
+  "lastName": "Chung",
+  "email": "anthony.chung@test.com",
+  "approved": "true",
+  "password:": "123456",
+},
+]

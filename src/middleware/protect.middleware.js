@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const ErrorResponse = require('../utils/errorResponse');
-const User = require('../models/User.model');
+const jwt = require("jsonwebtoken");
+const ErrorResponse = require("../utils/errorResponse");
+const User = require("../models/UserModels");
 
 exports.protect = async (req, res, next) => {
   let token;
@@ -8,13 +8,13 @@ exports.protect = async (req, res, next) => {
   //check the headers and check if it contains correct data format.
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization.startsWith("Bearer")
   ) {
-    token = req.headers.authorization.split(' ')[1];
+    token = req.headers.authorization.split(" ")[1];
   }
 
   if (!token) {
-    return next(new ErrorResponse('Not Authorized', 401));
+    return next(new ErrorResponse("Not Authorized", 401));
   }
 
   try {
@@ -26,6 +26,6 @@ exports.protect = async (req, res, next) => {
 
     next();
   } catch (err) {
-    next(new ErrorResponse('Not Authorized', 401));
+    next(new ErrorResponse("Not Authorized", 401));
   }
 };

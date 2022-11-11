@@ -6,7 +6,7 @@ const {
   updateUser,
   deleteUser,
   getUser,
-} = require("../controllers/users.controllers");
+} = require("../controllers/usersControllers");
 
 const { protect } = require("../middleware/protect.middleware");
 router.route("/").get(allUsers).post(protect, createUser);

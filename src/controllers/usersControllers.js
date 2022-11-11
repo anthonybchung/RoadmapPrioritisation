@@ -1,5 +1,5 @@
-const User = require('../models/User.model');
-const ErrorResponse = require('../utils/errorResponse');
+const User = require("../models/UserModels");
+const ErrorResponse = require("../utils/errorResponse");
 
 // Description: Get all users on the system.
 // route: GET /api/v1/users/
@@ -13,7 +13,7 @@ exports.allUsers = async (req, res, next) => {
     });
   } catch (error) {
     next(
-      new ErrorResponse('Server can not find Users requested resources', 404)
+      new ErrorResponse("Server can not find Users requested resources", 404)
     );
   }
 };
@@ -71,7 +71,7 @@ exports.updateUser = async (req, res, next) => {
     });
 
     if (!user) {
-      const message = 'User id not found';
+      const message = "User id not found";
       return next(new ErrorResponse(message, 422));
     }
 

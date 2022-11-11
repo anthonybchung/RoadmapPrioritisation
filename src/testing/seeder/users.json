@@ -1,9 +1,30 @@
-
-users = [
-  { "firstName": "Anthony",
-  "lastName": "Chung",
-  "email": "anthony.chung@test.com",
-  "approved": "true",
-  "password:": "123456",
-},
+[
+  {
+    "firstName": "Anthony",
+    "lastName": "Chung",
+    "email": "anthony.chung@test.com",
+    "approved": "true",
+    "password:": "123456"
+  },
+  {
+    "firstName": "Bernie",
+    "lastName": "Davis",
+    "email": "bernie@test.com",
+    "approved": "false",
+    "password:": "123456"
+  },
+  {
+    "firstName": "Charlie",
+    "lastName": "Edwards",
+    "email": "charlie@test.com",
+    "approved": "false",
+    "password:": "123456"
+  },
+  {
+    "firstName": "David",
+    "lastName": "Franklin",
+    "email": "david@test.com",
+    "approved": "false",
+    "password:": "123456"
+  }
 ]

@@ -114,6 +114,17 @@ describe("Integration test for users api: with access token", () => {
     expect(response.body.data.approved).toBe(false);
   });
 
+  it("should not allow PUT/Update to change user password freely", async () => {
+    const userId = "636e3fe69f8a78dd53cfc5d2";
+
+    const response = await request(app)
+      .put(`/api/v1/users/${userId}`)
+      .send({ password: "6543210" })
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(401);
+  });
+
   let newUserId = "";
   it("POST/Create one new user", async () => {
     const newUser = {

@@ -1,6 +1,6 @@
 const express = require("express");
 const { expectCt } = require("helmet");
-const { default: mongoose } = require("mongoose");
+const { mongoose } = require("mongoose");
 const request = require("supertest");
 const { app, PORT, HOST, MODE } = require("../../server");
 

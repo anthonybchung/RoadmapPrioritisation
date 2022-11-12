@@ -64,8 +64,8 @@ exports.login = async (req, res, next) => {
 
 exports.getMe = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id);
-
+    const user = await User.findById(req.params.id);
+    console.log(user);
     res.status(200).json({
       success: true,
       data: user,
@@ -127,7 +127,7 @@ exports.forgotPassword = async (req, res, next) => {
 
 //Description: reset password
 // Route: PUT /api/v1/auth/resetpassword/:resettoken
-// Access: Public
+// Access: Private
 
 exports.resetPassword = async (req, res, next) => {
   const resetPasswordToken = crypto
@@ -168,9 +168,9 @@ const sendTokenResponse = (user, statusCode, res) => {
   };
 
   const approved = user.approved;
-
+  const _id = user._id;
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, token, approved });
+    .json({ success: true, token, approved, _id });
 };

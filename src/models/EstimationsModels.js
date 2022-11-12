@@ -42,7 +42,7 @@ const EstimationsSchema = new mongoose.Schema({
     maxlength: [20, "Owner max length is 20"],
     default: 0,
   },
-  squad_name: {
+  squad: {
     type: String,
     unique: true,
     required: [true, "Please enter a squad name"],

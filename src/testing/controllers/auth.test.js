@@ -95,6 +95,6 @@ describe("Authentication create user with valid fields and info", () => {
       .get(`/api/v1/auth/me/${userId}`)
       .set("Authorization", `Bearer ${token}`);
 
-    console.log(response);
+    expect(response.body.data.firstName).toBe("Emerson");
   });
 });

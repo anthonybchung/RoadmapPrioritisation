@@ -75,6 +75,40 @@ exports.getMe = async (req, res, next) => {
   }
 };
 
+// Description: ChangePassword
+// route: PUT /api/v1/auth/changepassword
+// access: Private
+
+exports.changePassword = async (req, res, next) => {
+  const { currentPassword, newPassword, email } = req.body;
+
+  try {
+    // User validation
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) {
+      return next(new ErrorResponse("Invalid email or user", 401));
+    }
+
+    //check authorisation
+    const isAllowedAccess = await user.allowedAccess(currentPassword);
+
+    if (!isAllowedAccess) {
+      return next(new ErrorResponse("Not authorised"), 401);
+    }
+
+    //update password
+    user.password = newPassword;
+    await user.save();
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Description: Forgot password.
 // route: POST: /api/v1/auth/forgotpassword
 // access: Public

@@ -50,6 +50,6 @@ const Model = require(`./models/${modelName}Models`);
 
 if (process.argv[2] === "-i") {
   insertData(Model, data);
-} else if (process.argv[2]) {
+} else if (process.argv[2] === "-d") {
   deleteData(Model);
 }

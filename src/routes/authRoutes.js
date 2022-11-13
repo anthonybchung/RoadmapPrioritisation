@@ -4,6 +4,7 @@ const {
   getMe,
   forgotPassword,
   resetPassword,
+  changePassword,
 } = require("../controllers/authController");
 const { protect } = require("../middleware/protect.middleware");
 const express = require("express");
@@ -17,6 +18,7 @@ router
   .put("/resetpassword/:resettoken", resetPassword);
 
 // private
-router.route("/me/:id").get(getMe);
+router.route("/me/:id").get(protect, getMe);
+router.route("/changepassword").put(protect, changePassword);
 
 module.exports = router;

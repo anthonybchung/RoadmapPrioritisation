@@ -41,7 +41,7 @@ exports.getUser = async (req, res, next) => {
 
 // Description: Create new user.
 // route: POST /api/v1/users/
-// access: public
+// access: private
 exports.createUser = async (req, res, next) => {
   try {
     const user = await User.create(req.body);
@@ -64,6 +64,12 @@ exports.createUser = async (req, res, next) => {
 // route: PUT /api/v1/users/:id
 // access: private
 exports.updateUser = async (req, res, next) => {
+  //can not change password in this route.
+  if (req.body.password) {
+    const message = "Not authorized to change password";
+    return next(new ErrorResponse(message, 401));
+  }
+
   try {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -74,7 +80,6 @@ exports.updateUser = async (req, res, next) => {
       const message = "User id not found";
       return next(new ErrorResponse(message, 422));
     }
-
     res.status(200).json({
       success: true,
       data: user,

@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 
 const Lifecycle = {
-  // Submitted:"Submitted",
-  Estimated:"Estimated",
+  Submitted:"Submitted",
   Initiative:"Initiative",
+  Estimation:"Estimation",
+  Estimated:"Estimated",
+
 }
 
 const InitiativesSchema = new mongoose.Schema({
@@ -74,10 +76,10 @@ const InitiativesSchema = new mongoose.Schema({
   priority: {
     type: String,
     enum: {
-      values: ["P-0", "P-1", "P-2", "P-3", "P-4", "P-5"],
-      message: "Please valid enum value: P-0,P-1,P-2,P-3,P-4,P-5",
+      values: ["?", "P-1", "P-2", "P-3", "P-4"],
+      message: "Please valid enum value: ?,P-1,P-2,P-3,P-4",
     },
-    default: "P-0",
+    default: "?",
   },
   target: {
     type: String,
@@ -108,20 +110,75 @@ const InitiativesSchema = new mongoose.Schema({
     },
     default: "January",
   },
+estimationPriority: {
+    type: String,
+    enum: {
+      values: ["?", "P-1", "P-2", "P-3", "P-4"],
+      message: "Please valid enum value: ?,P-1,P-2,P-3,P-4",
+    },
+    default: "?",
+  },
   comment: {
     type: String,
     unique: false,
     required: false,
     maxlength: [200, "Comment max length is 200"],
   },
+  squad: {
+    type: String,
+    unique: false,
+    required: true,
+    maxlength: [100, "Comment max length is 100"],
+  },
+  eng_est: {
+    type: Number,
+    unique: false,
+    required: true,
+    default: 0,
+  },
+  design_est: {
+    type: Number,
+    unique: false,
+    required: true,
+    default: 0,
+  },
+  pm_est: {
+    type: Number,
+    unique: false,
+    required: true,
+    default: 0,
+  },
+  goals: {
+    type: String,
+    unique: false,
+    required: false,
+    maxlength: [200, "Comment max length is 200"],
+  },
+  purpose: {
+    type: String,
+    unique: false,
+    required: false,
+    maxlength: [200, "Comment max length is 200"],
+  },
+  
+  // lifecycle: {
+  //   type: String,
+  //   enum: {
+  //     values: Object.values(Lifecycle),
+  //     message: `Please enter valid value: ${Object.values(Lifecycle)}`,
+  //   },
+  //   default: "Initiative",
+  // },
+
   lifecycle: {
     type: String,
     enum: {
-      values: Object.values(Lifecycle),
-      message: `Please valid enum value: ${Object.values(Lifecycle)}`,
+      values: ["Submitted", "Initiative", "Estimation", "Estimated"],
+      message: "Please valid enum value: Submitted, Initiative, Estimation, Estimated"
     },
-    default: "Initiative",
+    default: "Submitted",
   },
+  
 });
 
 module.exports = {

@@ -1,107 +1,109 @@
-const Estimation = require('../models/EstimationsModels');
-const ErrorResponse = require('../utils/errorResponse');
+const {InitiativesModel, Lifecycle} = require("../models/InitiativesModels");
+const ErrorResponse = require("../utils/errorResponse");
+const { allInitiatives } = require("./initiativesControllers");
 
-// Description: Get all estimations on the system.
-// route: GET /api/v1/estimations/
-// access: private
+// All estimation
+// route: GET /api/v1/estimation/
 exports.allEstimations = async (req, res, next) => {
   try {
-    const estimations = await Estimation.find();
+    
+    const estimation = await InitiativesModel.find({lifecycle: "Estimation" }).exec();
     res.status(200).json({
       success: true,
-      data: estimations,
+      data: estimation,
     });
   } catch (error) {
     next(
-      new ErrorResponse('Server can not find Estimation requested resources', 404)
+      new ErrorResponse(
+        "Server can not find estimation requested resources",
+        404
+      )
     );
   }
 };
 
 // Description: get one estimation.
-// route: Get /api/v1/estimations/:id
-// access: private
-exports.getEstimation= async (req, res, next) => {
-  try {
-    const estimation = await Estimation.findById(req.params.id);
+// route: Get /api/v1/estimation/:id
+exports.getEstimation = async (req, res, next) => {
+  console.log(req.params)
+  // try {
+  //   const estimation = await Estimations.findById({lifecylce: "Estimation"(req.params.id)}).exec();
 
-    if (!estimation) {
-      const message = `Can not find Estimation ID: ${req.params.id}`;
-      return next(new ErrorResponse(message, 404));
-    }
+  //   if (!estimation) {
+  //     const message = `Can not find estimation id: ${req.params.id}`;
+  //     return next(new ErrorResponse(message, 404));
+  //   }
 
-    res.status(200).json({
-      success: true,
-      data: estimation,
-    });
-  } catch (error) {
-    next(error);
-  }
+  //   res.status(200).json({
+  //     success: true,
+  //     data: estimation,
+  //   });
+  // } catch (error) {
+  //   next(error);
+  // }
 };
 
-// Description: Create new estimation.
-// route: POST /api/v1/estimations/
-// access: public
-exports.createEstimation = async (req, res, next) => {
-  try {
-    const estimation = await Estimation.create(req.body);
-
-    if (!estimation) {
-      return res.status(400).json({
-        success: false,
-      });
-    }
-    res.status(200).json({
-      success: true,
-      data: estimation,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Description: Update estimations
-// route: PUT /api/v1/estimations/:id
-// access: private
+// Description: Update estimation
+// route: PUT /api/v1/estimation/:id
 exports.updateEstimation = async (req, res, next) => {
   try {
-    const estimation = await Estimation.findByIdAndEstimation(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const estimation = await allInitiatives.findByIdAndUpdate(req.params._id,{lifecylce: "Estimation"},
+      );
 
-    if (!estimation) {
-      const message = 'Estimation id not found';
+    if (!initiative) {
+      const message = "Initiative id not found";
       return next(new ErrorResponse(message, 422));
     }
 
     res.status(200).json({
       success: true,
-      data: estimation,
     });
   } catch (error) {
     next(error);
   }
 };
 
-// Description: Delete estimation
-// route: DELETE /api/v1/estimations/:id
-// access: private
-exports.deleteEstimation = async (req, res, next) => {
+// Description: Update estimation lifecycle to estimated
+// route: PUT /api/v1/estimated/:id
+exports.updateEstimated = async (req, res, next) => {
+    try {
+      const estimation = await allInitiatives.findByIdAndUpdate(req.params._id, {lifecylce: "Estimated"}.exec(),
+      );
+  
+      if (!initiative) {
+        const message = "Initiative id not found";
+        return next(new ErrorResponse(message, 422));
+      }
+  
+      res.status(200).json({
+        success: true,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+// Description: Create estimation
+// route: PUT/api/v1/createEstimtion/:id
+exports.createEstimation = async (req, res, next) => {
   try {
-    const estimation = await Estimation.findByIdAndDelete(req.params.id);
+    const estimation = await InitiativesModel.findByIdAndUpdate(id,{lifecycle: "Estimation"}
+      // {
+      //   new: true,
+      //   runValidators: true,
+      // }
+    ).exec()
 
     if (!estimation) {
-      return res.status(400).json({
-        success: false,
-      });
+      const message = "Estimation id not found";
+      return next(new ErrorResponse(message, 422));
     }
 
     res.status(200).json({
       success: true,
-      data: {},
     });
   } catch (error) {
     next(error);
   }
 };
+

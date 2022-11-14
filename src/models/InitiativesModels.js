@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Lifecycle = {
   Submitted:"Submitted",
   Initiative:"Initiative",
+  Estimation:"Estimation",
   Estimated:"Estimated",
 
 }
@@ -160,13 +161,22 @@ estimationPriority: {
     maxlength: [200, "Comment max length is 200"],
   },
   
+  // lifecycle: {
+  //   type: String,
+  //   enum: {
+  //     values: Object.values(Lifecycle),
+  //     message: `Please enter valid value: ${Object.values(Lifecycle)}`,
+  //   },
+  //   default: "Initiative",
+  // },
+
   lifecycle: {
     type: String,
     enum: {
-      values: Object.values(Lifecycle),
-      message: `Please valid value: ${Object.values(Lifecycle)}`,
+      values: ["Submitted", "Initiative", "Estimation", "Estimated"],
+      message: "Please valid enum value: Submitted, Initiative, Estimation, Estimated"
     },
-    default: "Initiative",
+    default: "Submitted",
   },
   
 });

@@ -16,8 +16,7 @@ router.route("/").get(allEstimations);
 router.route("/:id").get(getEstimation)
 router.route("/updateEstimation/:id").put(updateEstimation)
 router.route("/updateEstimated/:id").put(updateEstimated)
-router.route("/createEstimation/:id").put(createEstimation)
-
+router.route("/createEstimation").put(createEstimation)
 
 
 module.exports = router;

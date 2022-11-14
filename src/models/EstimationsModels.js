@@ -1,5 +1,35 @@
 const mongoose = require("mongoose");
 
+const eg = {
+  priority: "",
+  ticket_id: "",
+  initiative: "",
+  description: "",
+  submit_data: "",
+  owner: "",
+  squad: "",
+  goal: "",
+  purpose: "",
+  eng_est: "",
+  design_est: "",
+  pm_est: "",
+  comment: "",
+  // initiative
+  // ticket_id: "",
+  // initiative: "",
+  // description: "",
+  // submit_data: "",
+  // owner: "",
+  impact: "",
+  confidence: "",
+  effort: "",
+  ice_score: "",
+  initiativePriority: "",
+  target: "",
+  target_launch: "",
+  comment: "",
+}
+
 const EstimationsSchema = new mongoose.Schema({
   priority: {
     type: String,

@@ -6,11 +6,9 @@ const ErrorResponse = require("../utils/errorResponse");
 // access: private
 exports.allInitiatives = async (req, res, next) => {
   try {
-    // const estimates = await InitiativesModel.find({lifecycle: { Lifecycle.Estimated ]}}).exec();
     const initiatives = await InitiativesModel.find({
-      lifecycle: "Initiative",
+      lifecycle: { $in: [null, Lifecycle.Initiative] },
     }).exec();
-
     res.status(200).json({
       success: true,
       data: initiatives,
@@ -30,7 +28,7 @@ exports.allInitiatives = async (req, res, next) => {
 exports.getInitiative = async (req, res, next) => {
   try {
     const initiative = await InitiativesModel.findById({
-      lifecylce: "Initiative",
+      lifecycle: "Initiative",
       _id: req.params.id,
     }).exec();
 
@@ -52,13 +50,13 @@ exports.getInitiative = async (req, res, next) => {
 // route: PUT /api/v1/initiative/:id
 exports.updateInitiative = async (req, res, next) => {
   try {
-    // const initiative = await InitiativesModel.findByIdAndUpdate(
-    //   { lifecylce: "Initiative"(req.params.id, req.body) }.exec()
-    // {
-    //   new: true,
-    //   runValidators: true,
-    // }
-    // );
+    const initiative = await InitiativesModel.findByIdAndUpdate(
+      { lifecycle: "Initiative"(req.params.id, req.body) }.exec()
+      // {
+      //   new: true,
+      //   runValidators: true,
+      // }
+    );
 
     // if (!initiative) {
     //   const message = "Initiative id not found";

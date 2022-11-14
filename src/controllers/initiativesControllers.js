@@ -6,15 +6,11 @@ const ErrorResponse = require("../utils/errorResponse");
 // access: private
 exports.allInitiatives = async (req, res, next) => {
   try {
-<<<<<<< HEAD
     // const estimates = await InitiativesModel.find({lifecycle: { Lifecycle.Estimated ]}}).exec();
     const initiatives = await InitiativesModel.find({
       lifecycle: "Initiative",
     }).exec();
-=======
-    
-    const initiatives = await InitiativesModel.find({lifecycle: "Initiative" }).exec();
->>>>>>> 4649927d5766a5694b192028af3c333a46ab825d
+
     res.status(200).json({
       success: true,
       data: initiatives,
@@ -33,7 +29,10 @@ exports.allInitiatives = async (req, res, next) => {
 // route: Get /api/v1/initiatives/:id
 exports.getInitiative = async (req, res, next) => {
   try {
-    const initiative = await Initiatives.findById({lifecylce: "Initiative",_id:req.params.id}).exec();
+    const initiative = await InitiativesModel.findById({
+      lifecylce: "Initiative",
+      _id: req.params.id,
+    }).exec();
 
     if (!initiative) {
       const message = `Can not find initiative id: ${req.params.id}`;
@@ -53,26 +52,44 @@ exports.getInitiative = async (req, res, next) => {
 // route: PUT /api/v1/initiative/:id
 exports.updateInitiative = async (req, res, next) => {
   try {
-    const initiative = await Initiative.findByIdAndUpdate(
-      ({lifecylce: "Initiative"
-      (req.params.id,
-      req.body)}).exec(),
-      // {
-      //   new: true,
-      //   runValidators: true,
-      // }
-    );
+    // const initiative = await InitiativesModel.findByIdAndUpdate(
+    //   { lifecylce: "Initiative"(req.params.id, req.body) }.exec()
+    // {
+    //   new: true,
+    //   runValidators: true,
+    // }
+    // );
 
-    if (!initiative) {
-      const message = "Initiative id not found";
-      return next(new ErrorResponse(message, 422));
-    }
+    // if (!initiative) {
+    //   const message = "Initiative id not found";
+    //   return next(new ErrorResponse(message, 422));
+    // }
 
     res.status(200).json({
       success: true,
-      data: user,
+      // data: user,
     });
   } catch (error) {
     next(error);
+  }
+};
+
+// Description update Initiative to Estimate.
+// route: PUT /api/v1/initiatives/updatetoEstimate/
+exports.updateToEstimate = async (req, res, next) => {
+  const array = req.body.selectedData;
+  console.log(array);
+  try {
+    const updateInitiative = await InitiativesModel.update(
+      { _id: { $in: array } },
+      {
+        lifecycle: "Estimation",
+      },
+      { mulit: true }
+    );
+
+    res.status(200).json({ data: updateInitiative });
+  } catch (error) {
+    console.log(error);
   }
 };

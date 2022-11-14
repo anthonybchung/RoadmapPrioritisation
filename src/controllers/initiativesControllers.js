@@ -1,4 +1,4 @@
-const Initiatives = require("../models/InitiativesModels");
+const {InitiativesModel, Lifecycle} = require("../models/InitiativesModels");
 const ErrorResponse = require("../utils/errorResponse");
 
 // Description: Get all users on the system.
@@ -6,7 +6,8 @@ const ErrorResponse = require("../utils/errorResponse");
 // access: private
 exports.allInitiatives = async (req, res, next) => {
   try {
-    const initiatives = await Initiatives.find();
+    // const estimates = await InitiativesModel.find({lifecycle: { Lifecycle.Estimated ]}}).exec();
+    const initiatives = await InitiativesModel.find({lifecycle: Lifecycle.Initiative }).exec();
     res.status(200).json({
       success: true,
       data: initiatives,

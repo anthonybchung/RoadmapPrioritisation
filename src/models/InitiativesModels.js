@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 
+const Lifecycle = {
+  // Submitted:"Submitted",
+  Estimated:"Estimated",
+  Initiative:"Initiative",
+}
+
 const InitiativesSchema = new mongoose.Schema({
   ticket_id: {
     type: String,
@@ -108,6 +114,17 @@ const InitiativesSchema = new mongoose.Schema({
     required: false,
     maxlength: [200, "Comment max length is 200"],
   },
+  lifecycle: {
+    type: String,
+    enum: {
+      values: Object.values(Lifecycle),
+      message: `Please valid enum value: ${Object.values(Lifecycle)}`,
+    },
+    default: "Initiative",
+  },
 });
 
-module.exports = mongoose.model("Initiatives", InitiativesSchema);
+module.exports = {
+  InitiativesModel: mongoose.model("Initiatives", InitiativesSchema),
+  Lifecycle,
+}

@@ -5,10 +5,8 @@ const ErrorResponse = require("../utils/errorResponse");
 // route: GET /api/v1/initiatives/
 // access: private
 exports.allInitiatives = async (req, res, next) => {
-  console.log("testing")
   try {
-    
-    const initiatives = await InitiativesModel.find({lifecycle: { $in: [ null, Lifecycle.Initiative ] } }).exec();
+    const initiatives = await InitiativesModel.find({lifecycle: {$in: [ null, Lifecycle.Initiative ]} }).exec();
     res.status(200).json({
       success: true,
       data: initiatives,

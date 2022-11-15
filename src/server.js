@@ -16,10 +16,13 @@ const auth = require("./routes/authRoutes");
 const initiatives = require("./routes/initiativesRoutes");
 const estimations = require("./routes/estimationRoutes");
 
+const config = require("./config/config");
 /********************************/
 // Load env variables.
 dotenv.config();
 
+const cfg = config.load();
+console.log({cfg})
 //connect to database
 connectDB();
 
@@ -54,12 +57,9 @@ app.use(express.urlencoded({ extended: true }));
 // store token in cookie
 app.use(cookieParser());
 // CORS add frontend domain name here.
-//"http://localhost:3000",
-//"https://roadmapprioritisation.netlify.app",
 const corsOptions = {
   origin: [
-    "https://roadmapprioritisation.netlify.app",
-    "https://roadmap-prioritization.netlify.app",
+    cfg.origin
   ],
   optionsSuccessStatus: 200,
 };

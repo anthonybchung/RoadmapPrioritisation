@@ -4,8 +4,6 @@ const {
   allInitiatives,
   updateInitiative,
   getInitiative,
-  createInitiative,
-  updateToEstimate,
 } = require("../controllers/initiativesControllers");
 
 const { protect } = require("../middleware/protect.middleware");

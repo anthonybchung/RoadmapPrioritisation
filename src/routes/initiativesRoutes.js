@@ -9,7 +9,7 @@ const {
 const { protect } = require("../middleware/protect.middleware");
 
 router.route("/").get(allInitiatives);
-router.route("/updatetoestimate").put(updateToEstimate);
+//router.route("/updatetoestimate").put(updateToEstimate);
 router.route("/:id").get(getInitiative).put(updateInitiative);
 
 module.exports = router;

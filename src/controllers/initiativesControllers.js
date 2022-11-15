@@ -6,13 +6,9 @@ const ErrorResponse = require("../utils/errorResponse");
 // access: private
 exports.allInitiatives = async (req, res, next) => {
   try {
-<<<<<<< HEAD
     const initiatives = await InitiativesModel.find({
       lifecycle: { $in: [null, Lifecycle.Initiative] },
     }).exec();
-=======
-    const initiatives = await InitiativesModel.find({lifecycle: {$in: [ null, Lifecycle.Initiative ]} }).exec();
->>>>>>> b3438c94e29ac00f2c6e9419018c40631f448914
     res.status(200).json({
       success: true,
       data: initiatives,
@@ -31,14 +27,10 @@ exports.allInitiatives = async (req, res, next) => {
 // route: Get /api/v1/initiatives/:id
 exports.getInitiative = async (req, res, next) => {
   try {
-<<<<<<< HEAD
     const initiative = await InitiativesModel.findById({
       lifecycle: "Initiative",
       _id: req.params.id,
     }).exec();
-=======
-    const initiative = await InitiativesModel.findById({lifecycle: "Initiative",_id:req.params.id}).exec();
->>>>>>> b3438c94e29ac00f2c6e9419018c40631f448914
 
     if (!initiative) {
       const message = `Can not find initiative id: ${req.params.id}`;

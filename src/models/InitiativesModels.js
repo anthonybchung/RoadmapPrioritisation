@@ -182,5 +182,5 @@ const InitiativesSchema = new mongoose.Schema({
 
 module.exports = {
   InitiativesModel: mongoose.model("Initiatives", InitiativesSchema),
-  //Lifecycle,
+  Lifecycle,
 };

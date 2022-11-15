@@ -59,7 +59,7 @@ app.use(cookieParser());
 const corsOptions = {
   origin: [
     "https://roadmapprioritisation.netlify.app",
-    "https://roadmap-prioritization.netlify.app/",
+    "https://roadmap-prioritization.netlify.app",
   ],
   optionsSuccessStatus: 200,
 };

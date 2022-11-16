@@ -60,6 +60,7 @@ const corsOptions = {
   origin: [
     "https://roadmapprioritisation.netlify.app",
     "https://roadmap-prioritization.netlify.app",
+    "http://localhost:3000",
   ],
   optionsSuccessStatus: 200,
 };

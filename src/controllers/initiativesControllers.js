@@ -51,21 +51,18 @@ exports.getInitiative = async (req, res, next) => {
 exports.updateInitiative = async (req, res, next) => {
   try {
     const initiative = await InitiativesModel.findByIdAndUpdate(
-      { lifecycle: "Initiative"(req.params.id, req.body) }.exec()
-      // {
-      //   new: true,
-      //   runValidators: true,
-      // }
+      req.params.id,
+      req.body
     );
 
-    // if (!initiative) {
-    //   const message = "Initiative id not found";
-    //   return next(new ErrorResponse(message, 422));
-    // }
+    if (!initiative) {
+      const message = "Initiative id not found";
+      return next(new ErrorResponse(message, 422));
+    }
 
     res.status(200).json({
       success: true,
-      // data: user,
+      data: initiative,
     });
   } catch (error) {
     next(error);

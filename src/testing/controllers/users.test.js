@@ -1,8 +1,5 @@
-const express = require("express");
-const { expect } = require("helmet");
 const { mongoose } = require("mongoose");
 const request = require("supertest");
-
 const { app, PORT, HOST, MODE } = require("../../server");
 // Only authorised users are allowed to create new users.
 
@@ -93,6 +90,14 @@ describe("Integration test for users api: with access token", () => {
     expect(data.createdAt).toEqual(expect.any(String));
   });
 
+  it("should return an error if an invalid MongoDB id format is used", async () => {
+    const response = await request(app)
+      .get(`/api/v1/users/1225523155ade`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.statusCode).toBe(400);
+    expect(response.body.error).toBe("Invalid Resource(_id): 1225523155ade");
+  });
+
   it("should GET one user but not contain password", async () => {
     const response = await request(app)
       .get(`/api/v1/users/${userId}`)
@@ -101,33 +106,21 @@ describe("Integration test for users api: with access token", () => {
     expect(response.body.data).not.toHaveProperty("password");
   });
 
-  it("should PUT/UPDATE one user approved to false then back to true", async () => {
-    let approval = false;
-
-    const response = await request(app)
-      .put(`/api/v1/users/${userId}`)
-      .send({ approved: approval })
-      .set("Authorization", `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(200);
-    expect(response.body.data.approved).toBe(false);
-
-    approval = true;
-    const response1 = await request(app)
-      .put(`/api/v1/users/${userId}`)
-      .send({ approved: approval })
-      .set("Authorization", `Bearer ${token}`);
-  });
-
   it("should not allow PUT/Update to change user password freely", async () => {
-    const userId = "636e3fe69f8a78dd53cfc5d2";
-
     const response = await request(app)
       .put(`/api/v1/users/${userId}`)
       .send({ password: "6543210" })
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.statusCode).toBe(401);
+  });
+
+  it("should return a statusCode 200 when successful", async () => {
+    const response = await request(app)
+      .put(`/api/v1/users/${userId}`)
+      .send({ approved: true })
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.body.success).toBe(true);
   });
 
   let newUserId = "";
@@ -143,19 +136,43 @@ describe("Integration test for users api: with access token", () => {
       .send(newUser)
       .set("Authorization", `Bearer ${token}`);
     newUserId = response.body.data._id;
+
+    expect(response.body.data.firstName).toBe("Emerson");
+    expect(response.body.success).toBe(true);
     expect(response.statusCode).toBe(200);
+  });
+
+  it("should return an error if user id is not found during update", async () => {
+    const response = await await request(app)
+      .put(`/api/v1/users/12343fe69f8a78dd53cfc5d2`)
+      .send({ email: "hello@test.com" })
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.body.error).toBe("User id not found");
+  });
+
+  it("should return an error if id can not be found during delete", async () => {
+    const response = await request(app)
+      .delete(`/api/v1/users/12343fe69f8a78dd53cfc5d2`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.statusCode).toBe(400);
+    expect(response.body.success).toBe(false);
   });
 
   it("Delete one user", async () => {
     const response = await request(app)
       .delete(`/api/v1/users/${newUserId}`)
       .set("Authorization", `Bearer ${token}`);
-    console.log(response);
+    expect(response.statusCode).toBe(200);
+    expect(response.body.success).toBe(true);
   });
 
-  it("should return an error, when GET- users can not access database", async () => {
-    mongoose.connection.close();
-    const response = await request(app).get("/api/v1/users");
+  it("should return an error if user can not be found", async () => {
+    const response = await request(app)
+      .get("/api/v1/users/6220de20106b4a3efa6124f1")
+      .set("Authorization", `Bearer ${token}`);
     expect(response.statusCode).toBe(404);
+    expect(response.body.error).toBe(
+      "Can not find User ID: 6220de20106b4a3efa6124f1"
+    );
   });
 });

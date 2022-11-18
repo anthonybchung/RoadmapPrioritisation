@@ -1,4 +1,4 @@
-const ErrorResponse = require('../utils/errorResponse');
+const ErrorResponse = require("../utils/errorResponse");
 
 const errorHandler = (err, req, res, next) => {
   console.log(err.stack.red);
@@ -7,14 +7,14 @@ const errorHandler = (err, req, res, next) => {
   error.message = err.message;
 
   // CastError
-  if (err.name === 'CastError') {
-    const message = `Invalid Resourse(${err.path}): ${err.value}`;
+  if (err.name === "CastError") {
+    const message = `Invalid Resource(${err.path}): ${err.value}`;
     error = new ErrorResponse(message, 400);
   }
 
   // Validation Error
   console.log(err.message);
-  if (err.name === 'ValidationError') {
+  if (err.name === "ValidationError") {
     const errKey = Object.keys(error.errors)[0];
     const message = `${error.errors[errKey]}`;
     error = new ErrorResponse(message, 422);
@@ -28,7 +28,7 @@ const errorHandler = (err, req, res, next) => {
   }
   res.status(error.statusCode || 500).json({
     success: false,
-    error: error.message || 'Server Error',
+    error: error.message || "Server Error",
   });
 };
 

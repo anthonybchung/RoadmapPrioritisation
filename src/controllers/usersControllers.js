@@ -46,11 +46,6 @@ exports.createUser = async (req, res, next) => {
   try {
     const user = await User.create(req.body);
 
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-      });
-    }
     res.status(200).json({
       success: true,
       data: user,

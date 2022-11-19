@@ -1,13 +1,14 @@
-const {InitiativesModel, Lifecycle} = require("../models/InitiativesModels");
+const { InitiativesModel, Lifecycle } = require("../models/InitiativesModels");
 const ErrorResponse = require("../utils/errorResponse");
 const { allInitiatives } = require("./initiativesControllers");
 
 // All estimation
-// route: GET /api/v1/estimation/
+// route: GET /api/v1/estimations/
 exports.allEstimations = async (req, res, next) => {
   try {
-    
-    const estimation = await InitiativesModel.find({lifecycle: "Estimation" }).exec();
+    const estimation = await InitiativesModel.find({
+      lifecycle: "Estimation",
+    }).exec();
     res.status(200).json({
       success: true,
       data: estimation,
@@ -23,11 +24,12 @@ exports.allEstimations = async (req, res, next) => {
 };
 
 // Description: get one estimation.
-// route: Get /api/v1/estimation/:id
+// route: Get /api/v1/estimations/:id
 exports.getEstimation = async (req, res, next) => {
-  console.log(req.params)
   try {
-    const estimation = await Estimations.findById({lifecycle: "Estimation"(req.params.id)}).exec();
+    const estimation = await InitiativesModel.findById({
+      lifecycle: "Estimation"(req.params.id),
+    }).exec();
 
     if (!estimation) {
       const message = `Can not find estimation id: ${req.params.id}`;
@@ -47,8 +49,9 @@ exports.getEstimation = async (req, res, next) => {
 // route: PUT /api/v1/estimation/:id
 exports.updateEstimation = async (req, res, next) => {
   try {
-    const estimation = await allInitiatives.findByIdAndUpdate(req.params._id,{lifecycle: "Estimation"},
-      );
+    const estimation = await allInitiatives.findByIdAndUpdate(req.params._id, {
+      lifecycle: "Estimation",
+    });
 
     if (!initiative) {
       const message = "Initiative id not found";
@@ -66,34 +69,17 @@ exports.updateEstimation = async (req, res, next) => {
 // Description: Update estimation lifecycle to estimated
 // route: PUT /api/v1/estimated/:id
 exports.updateEstimated = async (req, res, next) => {
-    try {
-      const estimation = await allInitiatives.findByIdAndUpdate(req.params._id, {lifecycle: "Estimated"}.exec(),
-      );
-  
-      if (!initiative) {
-        const message = "Initiative id not found";
-        return next(new ErrorResponse(message, 422));
-      }
-  
-      res.status(200).json({
-        success: true,
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-// Description: Create estimation
-// route: PUT/api/v1/createEstimtion/:id
-exports.createEstimation = async (req, res, next) => {
   try {
-    console.log(req.body)
-    const ids = req.body?.selectedData || []
-    for(id of ids) {
-      console.log({id})
-      await InitiativesModel.findByIdAndUpdate(id,{lifecycle: Lifecycle.Estimation}).exec()
+    const estimation = await allInitiatives.findByIdAndUpdate(
+      req.params._id,
+      { lifecycle: "Estimated" }.exec()
+    );
+
+    if (!initiative) {
+      const message = "Initiative id not found";
+      return next(new ErrorResponse(message, 422));
     }
-    
+
     res.status(200).json({
       success: true,
     });
@@ -102,3 +88,23 @@ exports.createEstimation = async (req, res, next) => {
   }
 };
 
+// Description: Create estimation
+// route: PUT/api/v1/createEstimtion/:id
+exports.createEstimation = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const ids = req.body?.selectedData || [];
+    for (id of ids) {
+      console.log({ id });
+      await InitiativesModel.findByIdAndUpdate(id, {
+        lifecycle: Lifecycle.Estimation,
+      }).exec();
+    }
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

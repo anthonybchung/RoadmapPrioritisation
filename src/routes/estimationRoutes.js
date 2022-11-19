@@ -5,18 +5,16 @@ const {
   updateEstimation,
   updateEstimated,
   getEstimation,
-  createEstimation
-} = require ("../controllers/estimationController");
-
+  createEstimation,
+} = require("../controllers/estimationController");
 
 const { protect } = require("../middleware/protect.middleware");
 
-router.route("/").get(allEstimations);
+router.route("/").get(protect, allEstimations);
 
-router.route("/:id").get(getEstimation)
-router.route("/updateEstimation/:id").put(updateEstimation)
-router.route("/updateEstimated/:id").put(updateEstimated)
-router.route("/createEstimation").put(createEstimation)
-
+router.route("/:id").get(protect, getEstimation);
+router.route("/updateEstimation/:id").put(protect, updateEstimation);
+router.route("/updateEstimated/:id").put(protect, updateEstimated);
+router.route("/createEstimation").put(protect, createEstimation);
 
 module.exports = router;

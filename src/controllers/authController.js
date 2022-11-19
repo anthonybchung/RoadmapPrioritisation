@@ -114,7 +114,6 @@ exports.changePassword = async (req, res, next) => {
 // access: Public
 
 exports.forgotPassword = async (req, res, next) => {
-  console.log(req.body);
   try {
     const userLowerCase = req.body.email.toLowerCase();
     const user = await User.findOne({ email: userLowerCase });

@@ -7,7 +7,7 @@ const ErrorResponse = require("../utils/errorResponse");
 exports.allInitiatives = async (req, res, next) => {
   try {
     const initiatives = await InitiativesModel.find({
-      lifecycle: { $in: [null, Lifecycle.Initiative] },
+      lifecycle: { $in: [null, "", Lifecycle.Initiative] },
     }).exec();
     res.status(200).json({
       success: true,

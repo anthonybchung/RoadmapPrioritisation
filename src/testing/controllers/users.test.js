@@ -46,7 +46,7 @@ describe("Without access token", () => {
 
 describe("Integration test for users api: with access token", () => {
   let token = "";
-  const userId = "6370de60106b4a3efa6124f1";
+  let userId = "";
 
   beforeAll(async () => {
     const authUser = {
@@ -61,6 +61,7 @@ describe("Integration test for users api: with access token", () => {
       .send(authUser);
 
     token = authResponse.body.token;
+    userId = authResponse.body._id;
   });
 
   it("should return an array of users with statusCode 200", async () => {

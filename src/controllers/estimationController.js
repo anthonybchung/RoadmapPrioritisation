@@ -84,7 +84,6 @@ exports.updateEstimated = async (req, res, next) => {
 // route: PUT/api/v1/createEstimtion/:id
 exports.createEstimation = async (req, res, next) => {
   try {
-    console.log(req.body);
     const ids = req.body?.selectedData || [];
     for (id of ids) {
       console.log({ id });

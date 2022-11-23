@@ -68,23 +68,3 @@ exports.updateInitiative = async (req, res, next) => {
     next(error);
   }
 };
-
-// Description update Initiative to Estimate.
-// route: PUT /api/v1/initiatives/updatetoEstimate/
-// exports.updateToEstimate = async (req, res, next) => {
-//   const array = req.body.selectedData;
-//   console.log(array);
-//   try {
-//     const updateInitiative = await InitiativesModel.update(
-//       { _id: { $in: array } },
-//       {
-//         lifecycle: "Estimation",
-//       },
-//       { mulit: true }
-//     );
-
-//     res.status(200).json({ data: updateInitiative });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };

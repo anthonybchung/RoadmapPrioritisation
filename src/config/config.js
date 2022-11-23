@@ -1,6 +1,5 @@
 const production = {
-  origin: "https://roadmapprioritisation.netlify.app",
-  // origin: "https://roadmap-prioritization.netlify.app", // Update before deploy to Netlify
+  origin: "https://roadmap-prioritization.netlify.app", // Update before deploy to Netlify
 };
 
 const development = {
